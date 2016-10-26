@@ -17,13 +17,20 @@ final float cameraDistanceMax = 500;
 
 PImage imgCar;
 
+PShape car;
+PImage track;
+
 void setup()
 {
   fullScreen(P3D);
   camera = new Camera(this, 50, 50, 50);
   updateView();
   
-  imgCar = loadImage("car.jpg");
+  car = loadShape("f1.obj");
+  //s.scale(20);
+  car.rotate(PI);
+  
+  track = loadImage("silverstone.jpg");
 }
 
 void draw()
@@ -32,12 +39,17 @@ void draw()
   background(204);
   lights();
 
+/*
   rotatedImage(imgCar, 0, 0, 0, 50, 50, 0, 0, 0); 
   rotatedImage(imgCar, 0, 0, 0, 50, 50, 0, PI/4, 0); 
   rotatedImage(imgCar, 0, 50, 0, 50, 50, PI/2, 0, 0); 
 
   translatedBox(0, 0, 0, 50, 30, 5);
   translatedBox(50, 0, 0, 10, 10, 10);
+*/
+  
+  rotatedImage(track, 15, 0, 0, 50, 50, PI/2, 0, 2); 
+  shape(car, 0, 0);
 }
 
 void rotatedImage(PImage img, float x, float y, float z, float xSize, float ySize, float xRotate, float yRotate, float zRotate)
