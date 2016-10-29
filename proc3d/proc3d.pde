@@ -12,25 +12,27 @@ final float topAngleLimit = 5*PI/6;
 
 Camera camera;
 float cameraDistance = 100;
-final float cameraDistanceMin = 50;
+final float cameraDistanceMin = 10;
 final float cameraDistanceMax = 500;
 
 PImage imgCar;
 
 PShape car;
-PImage track;
+PShape track;
 
 void setup()
 {
   fullScreen(P3D);
-  camera = new Camera(this, 50, 50, 50);
+  camera = new Camera(this, 50, 50, 50, 1, 1000);
+  
   updateView();
   
   car = loadShape("f1.obj");
   //s.scale(20);
   car.rotate(PI);
   
-  track = loadImage("silverstone.jpg");
+  track = loadShape("Silverstone_circuit.svg");
+  
 }
 
 void draw()
@@ -48,18 +50,18 @@ void draw()
   translatedBox(50, 0, 0, 10, 10, 10);
 */
   
-  rotatedImage(track, 15, 0, 0, 50, 50, PI/2, 0, 2); 
+  rotatedImage(track, 15, 0, 0, 1350, 830, PI/2, 0, 2); 
   shape(car, 0, 0);
 }
 
-void rotatedImage(PImage img, float x, float y, float z, float xSize, float ySize, float xRotate, float yRotate, float zRotate)
+void rotatedImage(PShape img, float x, float y, float z, float xSize, float ySize, float xRotate, float yRotate, float zRotate)
 {
   pushMatrix();
   translate(x, y, z);
   rotateX(xRotate);
   rotateY(yRotate);
   rotateZ(zRotate);
-  image(img, 0, 0, xSize, ySize);
+  shape(img, 0, 0, xSize, ySize);
   popMatrix();
 }  
 
