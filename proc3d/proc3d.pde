@@ -22,11 +22,12 @@ void setup()
 {
   fullScreen(P3D);
   camera = new Camera(this, 50, 50, 50, 1, 1000);
-  updateView();
 
   trackShape = loadShape("Silverstone_circuit.svg");
   car = new Car("f1.obj");
   car.setPosition(0, 0, 0, PI/4);
+
+  updateView();
 }
 
 void draw()
@@ -36,9 +37,10 @@ void draw()
   lights();
 
   car.updatePosition();
+  updateView();
 
   shapeWithTranslation(trackShape, 0, 0, 0, PI/2, 0, 0); 
-  shapeWithTranslation(car.shape, car.x, car.y, car.z, 0, PI/2 - car.attitude, PI); 
+  shapeWithTranslation(car.shape, car.x, car.y, car.z, 0, PI/2 - car.attitude, PI);
 }
 
 void shapeWithTranslation(PShape shape, float x, float y, float z, float xRotate, float yRotate, float zRotate)
@@ -116,8 +118,9 @@ void mouseWheel(MouseEvent event)
 void updateView()
 {
   //println(phi, theta);
-  float x = cameraDistance * sin(theta) * cos(phi);
-  float y = cameraDistance * cos(theta);
-  float z = cameraDistance * sin(theta) * sin(phi);
+  float x = car.x - sin(-car.attitude + PI/2) * 10;
+  float z = car.z - cos(-car.attitude + PI/2) * 10;
+  float y = car.y - 5; 
   camera.jump(x, y, z);
+  camera.aim(car.x, car.y, car.z);
 }
